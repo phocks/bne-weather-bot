@@ -20,7 +20,7 @@ const SIGN_OFF = [
   "Bye bye!",
 ];
 
-function getRandomElement(array: any) {
+function getRandomElement(array: string[]) {
   return array[Math.floor(Math.random() * array.length)];
 }
 
