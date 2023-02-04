@@ -1,3 +1,4 @@
+import "https://deno.land/x/dotenv@v3.2.0/load.ts";
 import { serve } from "https://deno.land/std@0.155.0/http/server.ts";
 import Masto from "https://esm.sh/mastodon@1.2.2";
 import wrap from "https://esm.sh/await-to-js@3.0.0";
@@ -24,17 +25,18 @@ function getRandomElement(array: string[]) {
   return array[Math.floor(Math.random() * array.length)];
 }
 
-const mastodonApi = new Masto({
-  access_token: Deno.env.get("MASTODON_ACCESS_TOKEN"),
-  timeout_ms: 60 * 1000,
-  api_url: "https://bne.social/api/v1/",
-});
-
 const TRIGGER_ROUTE = new URLPattern({
   pathname: "/trigger" + Deno.env.get("TRIGGER_SECRET"),
 });
 
 const getWeatherData = async () => {
+  // Check we have a key
+  if (!Deno.env.get("OPENWEATHER_API_KEY")) {
+    throw new Error(
+      "No API key found. OpenWeather API key must be set in the OPENWEATHER_API_KEY environment variable."
+    );
+  }
+
   const lat = "-27.470125";
   const lon = "153.021072";
 
@@ -55,6 +57,10 @@ const getWeatherData = async () => {
   if (fetchError) {
     console.error(fetchError);
     throw fetchError;
+  }
+
+  if (!response.ok) {
+    throw new Error("Bad response" + response.statusText);
   }
 
   if (response.ok) {
@@ -109,6 +115,12 @@ serve(async (req: Request) => {
   // whatever is in the TRIGGER_SECRET env var
   const match = TRIGGER_ROUTE.exec(req.url);
   if (match) {
+    const mastodonApi = new Masto({
+      access_token: Deno.env.get("MASTODON_ACCESS_TOKEN"),
+      timeout_ms: 60 * 1000,
+      api_url: "https://bne.social/api/v1/",
+    });
+
     const response = await mastodonApi.post("statuses", {
       status: toot,
       visibility: "unlisted",
