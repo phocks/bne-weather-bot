@@ -4,9 +4,9 @@ import Masto from "https://esm.sh/mastodon@1.2.2";
 import wrap from "https://esm.sh/await-to-js@3.0.0";
 
 // Local imports
-import { getHour } from "./utils/time.ts";
+import * as time from "./utils/time.ts";
 
-console.log("It is hour number:", getHour());
+console.log("It is hour number:", time.getHour());
 
 const GENERAL_GREETINGS = [
   "Hi there.",
@@ -25,6 +25,8 @@ const SIGN_OFF = [
   "Later!",
   "Bye bye!",
 ];
+
+const WE_HAVE_ALTS = ["we have", "we're seeing", "there's"];
 
 function getRandomElement(array: string[]) {
   return array[Math.floor(Math.random() * array.length)];
@@ -106,11 +108,13 @@ serve(async (req: Request) => {
   // Create our toot
   const toot = `${getRandomElement(GENERAL_GREETINGS)} ${getRandomElement(
     rightNowVariations
-  )} we have ${values.subDescription}. The temperature is ${
-    values.tempNow
-  }°C, and "feels like" ${values.feelsLike}°C. Humidity is at ${
-    values.humidityPercent
-  }%. ${getRandomElement(SIGN_OFF)}`;
+  )} ${getRandomElement(WE_HAVE_ALTS)} ${
+    values.subDescription
+  }. The temperature is ${values.tempNow}°C, and "feels like" ${
+    values.feelsLike
+  }°C. Humidity is at ${values.humidityPercent}%. ${getRandomElement(
+    SIGN_OFF
+  )}`;
 
   //The current temperature in Brisbane is ${values.tempNow}°C.`;
 
