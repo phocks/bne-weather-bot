@@ -5,32 +5,9 @@ import wrap from "https://esm.sh/await-to-js@3.0.0";
 
 // Local imports
 import * as time from "./utils/time.ts";
+import * as variations from "./utils/variations.ts";
 
 console.log("It is hour number:", time.getHour());
-
-const GENERAL_GREETINGS = [
-  "Hi there.",
-  "Hello.",
-  "Howdy all.",
-  "What's up everyone?",
-  "Hey friends.",
-  "G'day mates!",
-];
-
-const SIGN_OFF = [
-  "Have a great day!",
-  "See ya next time!",
-  "Take care!",
-  "See ya 'round.",
-  "Later!",
-  "Bye bye!",
-];
-
-const WE_HAVE_ALTS = ["we have", "we're seeing", "there's"];
-
-function getRandomElement(array: string[]) {
-  return array[Math.floor(Math.random() * array.length)];
-}
 
 const TRIGGER_ROUTE = new URLPattern({
   pathname: "/trigger" + Deno.env.get("TRIGGER_SECRET"),
@@ -96,25 +73,19 @@ serve(async (req: Request) => {
 
   console.log(values);
 
-  const rightNowVariations = [
-    `Right now in ${values.locationName}`,
-    `Currently in ${values.locationName}`,
-    `At this time in ${values.locationName}`,
-    `In ${values.locationName} at the moment`,
-    `In ${values.locationName} right now`,
-    `In ${values.locationName} currently`,
-  ];
+  function subDescriptionFixes(subDescription: string) {
+    if (subDescription === "few clouds") return "a few clouds";
+    return subDescription;
+  }
 
   // Create our toot
-  const toot = `${getRandomElement(GENERAL_GREETINGS)} ${getRandomElement(
-    rightNowVariations
-  )} ${getRandomElement(WE_HAVE_ALTS)} ${
+  const toot = `${variations.getGeneralGreetings()} ${variations.getRightNowVariations(
+    values.locationName
+  )} ${variations.getWeHaveAlts()} ${subDescriptionFixes(
     values.subDescription
-  }. The temperature is ${values.tempNow}°C, and "feels like" ${
+  )}. The temperature is ${values.tempNow}°C, and "feels like" ${
     values.feelsLike
-  }°C. Humidity is at ${values.humidityPercent}%. ${getRandomElement(
-    SIGN_OFF
-  )}`;
+  }°C. Humidity is at ${values.humidityPercent}%. ${variations.getSignOff()}`;
 
   //The current temperature in Brisbane is ${values.tempNow}°C.`;
 
