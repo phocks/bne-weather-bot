@@ -1,3 +1,5 @@
+// deno-lint-ignore-file no-explicit-any
+
 import "https://deno.land/x/dotenv@v3.2.0/load.ts";
 import { serve } from "https://deno.land/std@0.155.0/http/server.ts";
 import Masto from "https://esm.sh/mastodon@1.2.2";
