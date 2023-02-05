@@ -3,6 +3,11 @@ import { serve } from "https://deno.land/std@0.155.0/http/server.ts";
 import Masto from "https://esm.sh/mastodon@1.2.2";
 import wrap from "https://esm.sh/await-to-js@3.0.0";
 
+// Local imports
+import { getHour } from "./utils/time.ts";
+
+console.log("It is hour number:", getHour());
+
 const GENERAL_GREETINGS = [
   "Hi there.",
   "Hello.",
@@ -33,7 +38,8 @@ const getWeatherData = async () => {
   // Check we have a key
   if (!Deno.env.get("OPENWEATHER_API_KEY")) {
     throw new Error(
-      "No API key found. OpenWeather API key must be set in the OPENWEATHER_API_KEY environment variable."
+      "No API key found. OpenWeather API key must be set " +
+        "in the OPENWEATHER_API_KEY environment variable."
     );
   }
 
