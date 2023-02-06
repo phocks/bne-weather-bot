@@ -6,6 +6,7 @@ import Masto from "https://esm.sh/mastodon@1.2.2";
 import * as time from "./utils/time.ts";
 import * as variations from "./utils/variations.ts";
 import getWeatherData from "./getWeatherData.ts";
+import roundTo from "./lib/roundTo.ts";
 
 console.log("It is hour number:", time.getHour());
 
@@ -20,13 +21,17 @@ serve(async (req: Request) => {
   // Extract weather description
   const weather = ApiResult?.weather[0];
 
+  // Process some values
+  const tempNow = roundTo(ApiResult?.main?.temp, 1);
+  const feelsLike = roundTo(ApiResult?.main?.feels_like, 1);
+
   // What weather did we get?
   const values = {
     locationName: ApiResult?.name,
     mainDescription: weather?.main,
     subDescription: weather?.description,
-    tempNow: ApiResult?.main?.temp,
-    feelsLike: ApiResult?.main?.feels_like,
+    tempNow,
+    feelsLike,
     humidityPercent: ApiResult?.main?.humidity,
   };
 
