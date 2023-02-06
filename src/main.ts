@@ -95,8 +95,6 @@ serve(async (req: Request) => {
     values.feelsLike
   }°C. Humidity is at ${values.humidityPercent}%. ${variations.getSignOff()}`;
 
-  //The current temperature in Brisbane is ${values.tempNow}°C.`;
-
   console.log(toot);
 
   // Check to see if we want to actually toot
