@@ -2,7 +2,7 @@ import "https://deno.land/x/dotenv@v3.2.0/load.ts";
 import { serve } from "https://deno.land/std@0.155.0/http/server.ts";
 import Masto from "https://esm.sh/mastodon@1.2.2";
 import wrap from "https://esm.sh/await-to-js@3.0.0";
-import urlcat from "https://esm.sh/urlcat";
+import urlcat from "https://esm.sh/urlcat@3.1.0";
 
 // Local imports
 import * as time from "./utils/time.ts";
