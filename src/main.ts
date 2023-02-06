@@ -120,5 +120,9 @@ serve(async (req: Request) => {
     });
   }
 
-  return Response.json({ code: "run/success", message: "Nothing to do" });
+  return Response.json({
+    code: "run/success",
+    message: "Nothing to do",
+    weather: ApiResult,
+  });
 });
