@@ -5,7 +5,7 @@ import Masto from "https://esm.sh/mastodon@1.2.2";
 // Local imports
 import * as time from "./utils/time.ts";
 import * as variations from "./utils/variations.ts";
-import getWeatherData from "./getWeatherData.ts";
+import getWeatherData from "./utils/getWeatherData.ts";
 import roundTo from "./lib/roundTo.ts";
 
 console.log("It is hour number:", time.getHour());
