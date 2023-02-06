@@ -1,9 +1,8 @@
-// deno-lint-ignore-file no-explicit-any
-
 import "https://deno.land/x/dotenv@v3.2.0/load.ts";
 import { serve } from "https://deno.land/std@0.155.0/http/server.ts";
 import Masto from "https://esm.sh/mastodon@1.2.2";
 import wrap from "https://esm.sh/await-to-js@3.0.0";
+import urlcat from "https://esm.sh/urlcat";
 
 // Local imports
 import * as time from "./utils/time.ts";
@@ -27,19 +26,26 @@ const getWeatherData = async () => {
   const lat = "-27.470125";
   const lon = "153.021072";
 
-  const params: any = {
+  type ApiData = {
+    lat: string;
+    lon: string;
+    units: string;
+    appid: string | undefined;
+  };
+
+  const params: ApiData = {
     lat,
     lon,
     units: "metric",
     appid: Deno.env.get("OPENWEATHER_API_KEY"),
   };
 
-  const [fetchError, response] = await wrap(
-    fetch(
-      `https://api.openweathermap.org/data/2.5/weather?` +
-        new URLSearchParams(params)
-    )
+  const apiUrl = urlcat(
+    "https://api.openweathermap.org/data/2.5/weather?",
+    params
   );
+
+  const [fetchError, response] = await wrap(fetch(apiUrl));
 
   if (fetchError) {
     console.error(fetchError);
