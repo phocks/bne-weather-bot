@@ -122,5 +122,5 @@ serve(async (req: Request) => {
     });
   }
 
-  return Response.json(ApiResult);
+  return Response.json({ code: "run/success", message: "Nothing to do" });
 });
