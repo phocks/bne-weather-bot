@@ -43,7 +43,7 @@ serve(async (req: Request) => {
   }
 
   // Create our toot
-  const toot = `${variations.getGeneralGreetings()} ${variations.getRightNowVariations(
+  const toot = `${variations.getTimeBasedGreetings(time.getHour())} ${variations.getRightNowVariations(
     values.locationName
   )} ${variations.getWeHaveAlts()} ${subDescriptionFixes(
     values.subDescription

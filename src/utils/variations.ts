@@ -10,9 +10,53 @@ const getGeneralGreetings = () =>
     "G'day mates!",
   ]);
 
+const getMorningGreetings = () =>
+  getRandomElement([
+    "Good morning!",
+    "Morning!",
+    "Top of the morning to ya!",
+    "What a morning!",
+    "Morning all!",
+  ]);
+
+const getAfternoonGreetings = () =>
+  getRandomElement([
+    "Good afternoon!",
+    "Afternoon!",
+    "Afternoon all!",
+    "Afternoon folks!",
+    "Happy arvo mates.",
+  ]);
+
+const getEveningGreetings = () =>
+  getRandomElement([
+    "Good evening!",
+    "Evening!",
+    "Evening all!",
+    "Evening folks!",
+    "Good evening everyone.",
+  ]);
+
+const getNightGreetings = () =>
+  getRandomElement([
+    "Good night!",
+    "What a night!",
+    "Night all!",
+    "Night folks!",
+    "Good night everyone.",
+  ]);
+
+const getTimeBasedGreetings = (time: number) => {
+  if (time >= 6 && time < 11) return getMorningGreetings();
+  else if (time >= 1 && time < 17) return getAfternoonGreetings();
+  else if (time >= 17 && time < 21) return getEveningGreetings();
+  else if (time >= 21 && time < 23) return getNightGreetings();
+  else return getGeneralGreetings();
+};
+
 const getSignOff = () =>
   getRandomElement([
-    "Have a great day!",
+    "Have a great one!",
     "See ya next time!",
     "Take care!",
     "See ya 'round.",
@@ -38,4 +82,5 @@ export {
   getSignOff,
   getWeHaveAlts,
   getRightNowVariations,
+  getTimeBasedGreetings,
 };
