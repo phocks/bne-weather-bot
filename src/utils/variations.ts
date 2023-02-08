@@ -48,7 +48,7 @@ const getNightGreetings = () =>
 
 const getTimeBasedGreetings = (time: number) => {
   if (time >= 6 && time < 11) return getMorningGreetings();
-  else if (time >= 1 && time < 17) return getAfternoonGreetings();
+  else if (time >= 11 && time < 17) return getAfternoonGreetings();
   else if (time >= 17 && time < 21) return getEveningGreetings();
   else if (time >= 21 && time < 23) return getNightGreetings();
   else return getGeneralGreetings();
