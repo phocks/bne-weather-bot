@@ -10,7 +10,7 @@ Commits (and pull requests) to `main` will be automatically deployed to [Deno De
 
 Feel free to have a play around. Best way to get started is to clone the repo then you should be able to set your own API keys in the `.env` file.
 
-Run with `deno run --allow-all main.ts`.
+Run with `deno run --allow-all src/main.ts`.
 
 Hit the trigger endpoint to do a test toot (on your test Mastodon account).
 
