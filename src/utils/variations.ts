@@ -46,9 +46,18 @@ const getNightGreetings = () =>
     "Good night everyone.",
   ]);
 
+// Not sure why I had it set to < 11 - should be fixed below
+// const getTimeBasedGreetings = (time: number) => {
+//   if (time >= 6 && time < 11) return getMorningGreetings();
+//   else if (time >= 11 && time < 17) return getAfternoonGreetings();
+//   else if (time >= 17 && time < 21) return getEveningGreetings();
+//   else if (time >= 21 && time < 23) return getNightGreetings();
+//   else return getGeneralGreetings();
+// };
+
 const getTimeBasedGreetings = (time: number) => {
-  if (time >= 6 && time < 11) return getMorningGreetings();
-  else if (time >= 11 && time < 17) return getAfternoonGreetings();
+  if (time >= 6 && time < 12) return getMorningGreetings();
+  else if (time >= 12 && time < 17) return getAfternoonGreetings();
   else if (time >= 17 && time < 21) return getEveningGreetings();
   else if (time >= 21 && time < 23) return getNightGreetings();
   else return getGeneralGreetings();
